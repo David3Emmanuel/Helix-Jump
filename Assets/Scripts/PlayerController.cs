@@ -35,9 +35,12 @@ public class PlayerController : MonoBehaviour
                 Destroy(other.transform.parent.gameObject);
             }
         }
+        else
+        {
+            rb.velocity = Vector3.zero;
+            rb.AddForce(Vector3.up * bounce, ForceMode.Impulse);
+        }
 
-        rb.velocity = Vector3.zero;
-        rb.AddForce(Vector3.up * bounce, ForceMode.Impulse);
         StartCoroutine(AllowCollision());
 
         perfectPasses = 0;
@@ -46,7 +49,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (perfectPasses >= 3 && !isSuperSpeedActive)
+        if (perfectPasses >= 2 && !isSuperSpeedActive)
         {
             isSuperSpeedActive = true;
             rb.AddForce(Vector3.down * 10, ForceMode.Impulse);
